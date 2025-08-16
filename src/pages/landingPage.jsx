@@ -10,9 +10,8 @@ export default function LandingPage() {
       {/* خلفية الصورة */}
       <div
         className="absolute inset-0 bg-cover bg-center z-0"
-        style={{ backgroundImage: "url('/dawn.jpg')" }}
+        style={{ backgroundImage: "url('/imgDown3.jpg')" }}
       >
-        <div className="w-full h-full bg-black/30 bg-opacity-50" />
       </div>
 
       {/* المحتوى فوق الخلفية */}
@@ -38,8 +37,8 @@ export default function LandingPage() {
         {/* هدف المركز والاستبيان */}
         <section className="flex flex-col items-end justify-center min-h-[calc(100vh-60px)] p-10 gap-6 text-right">
           <div className="max-w-2xl space-y-4">
-            <h2 className="text-4xl font-bold text-white">هدف المركز</h2>
-            <p className="text-lg font-bold leading-loose text-white">
+            <h2 className="text-4xl font-bold text-blue-700">هدف المركز</h2>
+            <p className="text-xl font-bold leading-loose text-blue-700">
               .مركز الأمل يهدف إلى تقديم الدعم الكامل لأهالي أطفال متلازمة داون
               <br />
               .نُساعد الأسر على تخطي التحديات التعليمية والصحية والنفسية

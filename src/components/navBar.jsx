@@ -31,25 +31,18 @@ export default function Navbar() {
         
         <div className="flex space-x-6 rtl:space-x-reverse text-white/80 text-lg font-medium items-center order-2">
           <Link
-            to="/settings"
+            to="/home/settings"
             className="flex items-center gap-1 hover:text-white transition duration-300"
           >
             <FaCog />
             <span>الإعدادات</span>
           </Link>
           <Link
-            to="/events"
+            to="/home/events"
             className="flex items-center gap-1 hover:text-white transition duration-300"
           >
             <FaCalendarAlt />
             <span>الفعاليات</span>
-          </Link>
-          <Link
-            to="/services"
-            className="flex items-center gap-1 hover:text-white transition duration-300"
-          >
-            <FaTools />
-            <span>الخدمات</span>
           </Link>
 
           
@@ -60,21 +53,21 @@ export default function Navbar() {
             </div>
             <div className="absolute bg-white text-gray-700 rounded shadow-md mt-2 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transform -translate-y-2 group-hover:block z-10 min-w-[150px] transition-all duration-500 ease-in-out">
               <Link
-                to="/health"
+                to="/home/news?type=صحة"
                 className="flex px-4 py-2 hover:bg-purple-100 items-center gap-2"
               >
                 <FaHeartbeat />
                 <span>صحة</span>
               </Link>
               <Link
-                to="/education"
+                to="/home/news?type=تعليم"
                 className="flex px-4 py-2 hover:bg-purple-100 items-center gap-2"
               >
                 <FaGraduationCap />
                 <span>تعليم</span>
               </Link>
               <Link
-                to="/activities"
+                to="/home/news?type=رياضه"
                 className="flex px-4 py-2 hover:bg-purple-100 items-center gap-2"
               >
                 <FaGamepad />
@@ -98,7 +91,7 @@ export default function Navbar() {
                 <span>مقالات</span>
               </Link>
               <Link
-                to="/home/content?sluge=video"
+                to="/home/content?sluge=vid"
                 className="flex px-4 py-2 hover:bg-purple-100 items-center gap-2"
               >
                 <FaVideo />
