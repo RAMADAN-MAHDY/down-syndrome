@@ -1,8 +1,9 @@
+
 import React from "react";
 import useSurveyStore from "../store/useSurveyStore";
 
 export default function Settings() {
-  const { questions, answers, updateAnswer } = useSurveyStore();
+  const { questions, answers, updateAnswer, resetSurvey } = useSurveyStore();
 
   return (
     <div className="max-w-md mx-auto mt-10 p-6 rounded-2xl shadow-lg bg-white">
@@ -18,18 +19,27 @@ export default function Settings() {
 
           <select
             value={answers[q.id] || ""}
-            onChange={(e) => updateAnswer(q.id, e.target.value)} 
+            onChange={(e) => updateAnswer(q.id, e.target.value)}
             className="w-full p-3 border rounded-lg text-gray-700"
           >
-            
             {q.options.map((opt, index) => (
-              <option key={index} value={opt._id ? opt._id : opt}>
+              <option key={index} value={opt.id ? opt.id : opt}>
                 {opt.name ? opt.name : opt}
               </option>
             ))}
           </select>
         </div>
       ))}
+
+    
+      <div className="text-center mt-6">
+        <button
+          onClick={resetSurvey}
+          className="px-6 py-3 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition"
+        >
+          إعادة تعيين الاستبيان
+        </button>
+      </div>
     </div>
   );
 }

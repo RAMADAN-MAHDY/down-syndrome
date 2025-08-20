@@ -70,7 +70,10 @@ export default function SurvySection() {
           currentQuestion.options.map((option, index) => (
             <button
               key={index}
-              onClick={() => handleAnswer(option._id ? option._id : option)}
+              onClick={() => {
+              const answerToStore = option.id ? { id: option.id, name: option.name } : option;
+              handleAnswer(answerToStore);
+            }}
               className="text-right text-blue-700 font-bold px-4 py-3 hover:bg-black/10 border-none outline-none"
             >
               {option.name ? option.name : option}

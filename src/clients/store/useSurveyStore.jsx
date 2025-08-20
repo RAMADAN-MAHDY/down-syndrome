@@ -37,26 +37,27 @@ const useSurveyStore = create(
       answers: {},
       submitted: false,
 
-      setQuestions: (newQuestions) =>
+    setQuestions: (newQuestions) =>
         set({ questions: newQuestions }),
 
-      handleAnswer: (answerText) =>
-        set((state) => {
-          const currentQuestion = state.questions[state.currentIndex];
-          const updatedAnswers = {
-            ...state.answers,
-            [currentQuestion.id]: answerText,
-          };
+    handleAnswer: (answer) =>
+      set((state) => {
+    const currentQuestion = state.questions[state.currentIndex];
+    const answerToStore = answer.id ? answer.id : answer;
+    const updatedAnswers = {
+      ...state.answers,
+      [currentQuestion.id]: answerToStore,
+    };
 
-          if (state.currentIndex < state.questions.length - 1) {
-            return {
-              answers: updatedAnswers,
-              currentIndex: state.currentIndex + 1,
-            };
-          } else {
-            return { answers: updatedAnswers, submitted: true };
-          }
-        }),
+    if (state.currentIndex < state.questions.length - 1) {
+      return {
+        answers: updatedAnswers,
+        currentIndex: state.currentIndex + 1,
+      };
+    } else {
+      return { answers: updatedAnswers, submitted: true };
+    }
+  }),
 
       updateAnswer: (questionId, answerText) =>
         set((state) => ({

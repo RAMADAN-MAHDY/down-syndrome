@@ -14,7 +14,7 @@ export default function LayOut() {
       <div className="flex">
 
           <Sidebar />
-          
+
         <main className=" p-6 ">
           <Outlet />
         </main>
