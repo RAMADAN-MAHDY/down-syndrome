@@ -5,8 +5,8 @@ import UseVerifyToken from "../hook/verifyToken";
 
 
 export default function ManageArticles() {
+    UseVerifyToken();
   const questions = useSurveyStore((state) => state.questions);
-  UseVerifyToken();
   const [articles, setArticles] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [form, setForm] = useState({
@@ -43,6 +43,7 @@ export default function ManageArticles() {
   // 🟢 حفظ (إضافة أو تعديل)
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(form[0] )
     try {
       const formData = new FormData();
       if (form.title) formData.append("title", form.title);
