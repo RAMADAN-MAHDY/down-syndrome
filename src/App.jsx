@@ -40,14 +40,14 @@ function App() {
           <Route path="events" element={<EventsPage/>}/>
           <Route path="filterSearch" element={<SearchResultsPage />} />
           <Route path="settings" element={<SettingsPage/>}/>
-          <Route path="answer/5" element={<DownSyndromeTypesAndDegrees/>}/>
-          <Route path="answer/6" element={<DownSyndromeLife/>}/>
-          <Route path="answer/3" element={<DownSyndromeCare/>}/>
-          <Route path="answer/1" element={<DownSyndromeCauses/>}/>
-          <Route path="answer/8" element={<DownSyndromePregnancy/>}/>
-          <Route path="answer/4" element={< DownSyndromeIQ/>}/>
-          <Route path="answer/2" element={<DownSyndromeTypes/>}/>
-          <Route path='answer/7' element={<DownSyndromeDefinition/>}/>
+          <Route path="answers/5" element={<DownSyndromeTypesAndDegrees/>}/>
+          <Route path="answers/6" element={<DownSyndromeLife/>}/>
+          <Route path="answers/3" element={<DownSyndromeCare/>}/>
+          <Route path="answers/1" element={<DownSyndromeCauses/>}/>
+          <Route path="answers/8" element={<DownSyndromePregnancy/>}/>
+          <Route path="answers/4" element={< DownSyndromeIQ/>}/>
+          <Route path="answers/2" element={<DownSyndromeTypes/>}/>
+          <Route path='answers/7' element={<DownSyndromeDefinition/>}/>
         </Route>
 
         <Route path="/admin" element={<LayoutAdmin />}>
