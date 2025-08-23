@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import UseVerifyToken from "../hook/verifyToken";
 import MapPicker from '../components/MapPicker'
+import Alert from "../components/Alert ";
+import ConfirmationPopup from '../components/ConfirmationPopup'
 
 export default function AddEvents() {
     UseVerifyToken();
@@ -14,7 +16,9 @@ export default function AddEvents() {
         latitude: "",
         longitude: "",
     });
-
+    const [confirmDelete, setConfirmDelete] = useState(false);
+    const [selectedId, setSelectedId] = useState(null);
+    const [alert, setAlert] = useState({ show: false, message: "", type: "info" });
     // console.log(form)
     const [events, setEvents] = useState([]);
     const [editingId, setEditingId] = useState(null);
@@ -26,7 +30,7 @@ export default function AddEvents() {
                 "https://down-syndrome-api.vercel.app/api/GetEvents",
                 { withCredentials: true }
             );
-            console.log(" Events:", res.data.events);
+            // console.log(" Events:", res.data.events);
             setEvents(res.data.events);
         } catch (err) {
             console.error(err.response ? err.response.data : err.message);
@@ -45,6 +49,9 @@ export default function AddEvents() {
     // 🟢 إضافة أو تعديل حدث
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!form.latitude) {
+            return alert(" من فضلك حدد مكان الحدث علي الخريطه ");
+        }
 
         const payload = {
             title: form.title,
@@ -65,14 +72,18 @@ export default function AddEvents() {
                     payload,
                     { withCredentials: true }
                 );
-                alert(" تم تعديل الحدث");
+                // alert(" تم تعديل الحدث");
+                setAlert({ show: true, message: "تم تعديل الحدث ✅", type: "success" });
+
             } else {
                 await axios.post(
                     "https://down-syndrome-api.vercel.app/api/admin/AddEvents",
                     payload,
                     { withCredentials: true }
                 );
-                alert(" تم إضافة الحدث");
+                // alert(" تم إضافة الحدث");
+                setAlert({ show: true, message: "تم إضافة الحدث ✅", type: "success" });
+
             }
 
             setForm({
@@ -87,7 +98,10 @@ export default function AddEvents() {
             fetchEvents();
         } catch (err) {
             console.error(err.response ? err.response.data : err.message);
-            alert("❌ فشل العملية");
+            // alert("❌ فشل العملية");
+            setAlert({ show: true, message: "فشل العملية ❌", type: "error" });
+
+
         }
     };
 
@@ -111,17 +125,29 @@ export default function AddEvents() {
     };
 
     // 🟢 حذف
-    const handleDelete = async (id) => {
-        if (!window.confirm("هل أنت متأكد من الحذف؟")) return;
+
+    const handleDeleteClick = (id) => {
+        setSelectedId(id);
+        setConfirmDelete(true);
+    };
+
+    const handleDelete = async () => {
+        // if (!window.confirm("هل أنت متأكد من الحذف؟")) return;
         try {
             await axios.delete(
-                `https://down-syndrome-api.vercel.app/api/admin/DeleteEvent/${id}`,
+                `https://down-syndrome-api.vercel.app/api/admin/DeleteEvent/${selectedId}`,
                 { withCredentials: true }
             );
-            alert("✅ تم الحذف");
+            // alert("✅ تم الحذف");
+            setSelectedId(null);
+            setConfirmDelete(false);
+            setAlert({ show: true, message: "تم حذف الحدث 🗑️", type: "error" });
+
             fetchEvents();
         } catch (err) {
             console.error(err);
+            setAlert({ show: true, message: "فشل الحذف ❌", type: "error" });
+
         }
     };
 
@@ -158,6 +184,7 @@ export default function AddEvents() {
                     />
 
                     <select
+                        required
                         name="type"
                         value={form.type}
                         onChange={handleChange}
@@ -278,7 +305,7 @@ export default function AddEvents() {
                                         ✏️ تعديل
                                     </button>
                                     <button
-                                        onClick={() => handleDelete(item._id)}
+                                        onClick={() => handleDeleteClick(item._id)}
                                         className="flex-1 bg-gradient-to-r from-red-400 to-red-500 hover:from-red-500 hover:to-red-600 text-white px-3 py-2 rounded-xl transition font-medium"
                                     >
                                         🗑️ حذف
@@ -294,7 +321,18 @@ export default function AddEvents() {
                     )}
                 </ul>
             </div>
+            <Alert
+                show={alert.show}
+                message={alert.message}
+                type={alert.type}
+                onClose={() => setAlert({ ...alert, show: false })}
+            />
 
+            <ConfirmationPopup
+                show={confirmDelete}
+                onConfirm={handleDelete}
+                onCancel={() => setConfirmDelete(false)}
+            />
         </div>
 
     );

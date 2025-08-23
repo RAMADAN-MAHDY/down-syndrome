@@ -1,21 +1,13 @@
-// Sidebar.jsx
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import {
-  FaHome,
-  FaCalendarAlt,
-  FaFileAlt,
-  FaNewspaper,
-  FaEnvelope,
-  FaBars,
-  FaTimes
-} from "react-icons/fa";
+import { Link, useLocation } from "react-router-dom";
+import { FaHome, FaCalendarAlt, FaFileAlt, FaNewspaper, FaEnvelope, FaBars, FaTimes } from "react-icons/fa";
 
 export default function Sidebar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const location = useLocation(); // 👈 نستخدمه لمعرفة الصفحة الحالية
 
   const menuItems = [
-    { name: "Home", icon: <FaHome />, path: "/admin/dashboard" },
+    { name: "Dashboard", icon: <FaHome />, path: "/admin/dashboard" },
     { name: "Add Event", icon: <FaCalendarAlt />, path: "/admin/add-event" },
     { name: "Add Content", icon: <FaFileAlt />, path: "/admin/add-content" },
     { name: "Add News", icon: <FaNewspaper />, path: "/admin/add-news" },
@@ -24,35 +16,54 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Hamburger button for mobile */}
+      {/* Hamburger للـ Mobile */}
       <button
-        className="md:hidden fixed top-4 left-4 z-40 bg-white p-2 rounded shadow"
+        className="md:hidden fixed top-4 left-4 z-50 bg-white p-2 rounded-full shadow-lg hover:bg-blue-100 transition"
         onClick={() => setSidebarOpen(true)}
       >
         <FaBars size={24} />
       </button>
 
+      {/* Overlay عند فتح الـ Sidebar على الموبايل */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/40 z-40 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
-      <div className={`fixed z-30 inset-y-0 left-0 transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 transition-transform duration-300 ease-in-out bg-white w-64 border-r`}>
-        <div className="flex items-center justify-between px-4 py-4 border-b">
-          <h2 className="text-xl font-bold text-blue-700">Dashboard</h2>
-          <button className="md:hidden" onClick={() => setSidebarOpen(false)}>
+      <aside className={`fixed z-50 inset-y-0 left-0 transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 transition-transform duration-300 ease-in-out bg-white w-64 border-r shadow-lg`}>
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b">
+          <h2 className="text-2xl font-bold text-blue-700">لوحة التحكم</h2>
+          <button
+            className="md:hidden p-1 rounded hover:bg-gray-200 transition"
+            onClick={() => setSidebarOpen(false)}
+          >
             <FaTimes size={20} />
           </button>
         </div>
-        <nav className="mt-4">
-          {menuItems.map((item) => (
-            <Link
-              key={item.name}
-              to={item.path}
-              className="flex items-center px-4 py-3 text-gray-700 hover:bg-blue-100 transition-colors"
-            >
-              <span className="mr-3">{item.icon}</span>
-              {item.name}
-            </Link>
-          ))}
+
+        {/* القائمة */}
+        <nav className="mt-6 flex flex-col gap-1 px-2">
+          {menuItems.map((item) => {
+            const isActive = location.pathname === item.path; // 👈 الصفحة الحالية
+            return (
+              <Link
+                key={item.name}
+                to={item.path}
+                onClick={() => setSidebarOpen(false)}
+                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors font-medium
+                  ${isActive ? "bg-blue-100 text-blue-700 font-bold" : "text-gray-700 hover:bg-blue-50 hover:text-blue-700"}`}
+              >
+                {item.icon}
+                {item.name}
+              </Link>
+            );
+          })}
         </nav>
-      </div>
+      </aside>
     </>
   );
 }

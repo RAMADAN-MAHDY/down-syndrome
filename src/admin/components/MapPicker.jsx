@@ -26,11 +26,11 @@ function LocationMarker({ onSelect }) {
 // 🟢 المكوّن الرئيسي
 export default function MapPicker({ onLocationSelect }) {
   return (
-    <div className="h-64 rounded-lg overflow-hidden border">
+    <div className="h-64 rounded-lg z-10 overflow-hidden border">
       <MapContainer
         center={[30.0444, 31.2357]} // القاهرة كمركز افتراضي
         zoom={13}
-        className="h-full w-full"
+        className="h-full w-full z-10"
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

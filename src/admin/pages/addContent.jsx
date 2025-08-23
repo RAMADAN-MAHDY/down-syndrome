@@ -3,12 +3,16 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import UseVerifyToken from "../hook/verifyToken";
 import useSurveyStore from "../../clients/store/useSurveyStore";
+import Alert from "../components/Alert ";
+import ConfirmationPopup from '../components/ConfirmationPopup'
 
 export default function AddContents() {
     UseVerifyToken();
-
+    const [alert, setAlert] = useState({ show: false, message: "", type: "info" });
     const questions = useSurveyStore((state) => state.questions);
-    console.log(questions)
+    const [confirmDelete, setConfirmDelete] = useState(false);
+    const [selectedId, setSelectedId] = useState(null);
+    // console.log(questions)
     const formRef = useRef(null);
     const [form, setForm] = useState({
         title: "",
@@ -31,9 +35,10 @@ export default function AddContents() {
                 "https://down-syndrome-api.vercel.app/api/content/filter",
                 { withCredentials: true }
             );
-            console.log("📌 API response:", res.data);
+            // console.log("📌 API response:", res.data);
 
             setContents(res.data);
+
         } catch (err) {
             console.error(err.response ? err.response.data : err.message);
         }
@@ -70,14 +75,18 @@ export default function AddContents() {
                     payload,
                     { withCredentials: true }
                 );
-                alert("تم تعديل المحتوى ✅");
+                // alert("تم تعديل المحتوى ✅");
+                setAlert({ show: true, message: "تم تعديل المحتوى ✅", type: "success" });
+
             } else {
                 await axios.post(
                     "https://down-syndrome-api.vercel.app/api/admin/content",
                     payload,
                     { withCredentials: true }
                 );
-                alert("تم إضافة المحتوى ✅");
+                // alert("تم إضافة المحتوى ✅");
+                setAlert({ show: true, message: "تم إضافة المحتوى ✅", type: "success" });
+
             }
 
             setForm({
@@ -95,7 +104,9 @@ export default function AddContents() {
             fetchContents();
         } catch (err) {
             console.error(err.response ? err.response.data : err.message);
-            alert("فشل العملية ❌");
+            // alert("فشل العملية ❌");
+            setAlert({ show: true, message: "فشل العملية ❌", type: "error" });
+
         }
     };
 
@@ -121,17 +132,29 @@ export default function AddContents() {
     };
 
     // 🟢 حذف
-    const handleDelete = async (id) => {
-        if (!window.confirm("هل أنت متأكد من الحذف؟")) return;
+
+    const handleDeleteClick = (id) => {
+        setSelectedId(id);
+        setConfirmDelete(true);
+    };
+
+
+    const handleDelete = async () => {
+        // if (!window.confirm("هل أنت متأكد من الحذف؟")) return;
         try {
             await axios.delete(
-                `https://down-syndrome-api.vercel.app/api/admin/content-Delete/${id}`,
+                `https://down-syndrome-api.vercel.app/api/admin/content-Delete/${selectedId}`,
                 { withCredentials: true }
             );
-            alert("تم الحذف ✅");
+            // alert("تم الحذف ✅");
+            setAlert({ show: true, message: "تم حذف المقال 🗑️", type: "error" });
+            setConfirmDelete(false);
+            setSelectedId(null)
             fetchContents();
         } catch (err) {
             console.error(err);
+            setAlert({ show: true, message: "فشل العملية ❌", type: "error" });
+
         }
     };
 
@@ -162,6 +185,7 @@ export default function AddContents() {
 sm:max-w-[80%] lg:max-w-[50%] bg-white/70 backdrop-blur-md p-6 rounded-2xl shadow-md"
             >
                 <input
+                    required
                     type="text"
                     name="title"
                     placeholder="📌 العنوان"
@@ -171,6 +195,7 @@ sm:max-w-[80%] lg:max-w-[50%] bg-white/70 backdrop-blur-md p-6 rounded-2xl shado
                 />
 
                 <select
+                    required
                     name="type"
                     value={form.type}
                     onChange={handleChange}
@@ -184,6 +209,7 @@ sm:max-w-[80%] lg:max-w-[50%] bg-white/70 backdrop-blur-md p-6 rounded-2xl shado
 
 
                 <textarea
+                    required
                     name="description"
                     placeholder="📝 الوصف"
                     value={form.description}
@@ -192,6 +218,7 @@ sm:max-w-[80%] lg:max-w-[50%] bg-white/70 backdrop-blur-md p-6 rounded-2xl shado
                 />
 
                 <select
+                    required
                     name="sluge"
                     value={form.sluge}
                     onChange={handleChange}
@@ -203,6 +230,7 @@ sm:max-w-[80%] lg:max-w-[50%] bg-white/70 backdrop-blur-md p-6 rounded-2xl shado
 
                 {form.sluge === "text" && (
                     <textarea
+                        required
                         name="articleText"
                         placeholder="✍️ نص المقال"
                         value={form.articleText}
@@ -212,6 +240,7 @@ sm:max-w-[80%] lg:max-w-[50%] bg-white/70 backdrop-blur-md p-6 rounded-2xl shado
                 )}
                 {form.sluge === "vid" && (
                     <input
+                        required
                         type="text"
                         name="url"
                         placeholder="🔗 رابط الفيديو (YouTube / Vimeo)"
@@ -222,6 +251,7 @@ sm:max-w-[80%] lg:max-w-[50%] bg-white/70 backdrop-blur-md p-6 rounded-2xl shado
                 )}
 
                 <select
+                    required
                     name="ageGroup"
                     value={form.ageGroup}
                     onChange={handleChange}
@@ -236,6 +266,7 @@ sm:max-w-[80%] lg:max-w-[50%] bg-white/70 backdrop-blur-md p-6 rounded-2xl shado
                 </select>
 
                 <select
+                    required
                     name="problemTag"
                     value={form.problemTag}
                     onChange={handleChange}
@@ -302,11 +333,11 @@ sm:max-w-[80%] lg:max-w-[50%] bg-white/70 backdrop-blur-md p-6 rounded-2xl shado
                                 <button
                                     onClick={() => handleEdit(item)}
                                     className="flex-1 bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-white px-3 py-2 rounded-xl transition"
-                                > 
+                                >
                                     ✏️ تعديل
                                 </button>
                                 <button
-                                    onClick={() => handleDelete(item._id)}
+                                    onClick={() => handleDeleteClick(item._id)}
                                     className="flex-1 bg-gradient-to-r from-red-400 to-red-500 hover:from-red-500 hover:to-red-600 text-white px-3 py-2 rounded-xl transition"
                                 >
                                     🗑️ حذف
@@ -316,7 +347,17 @@ sm:max-w-[80%] lg:max-w-[50%] bg-white/70 backdrop-blur-md p-6 rounded-2xl shado
                     ))}
                 </ul>
             </div>
-
+            <Alert
+                show={alert.show}
+                message={alert.message}
+                type={alert.type}
+                onClose={() => setAlert({ ...alert, show: false })}
+            />
+            <ConfirmationPopup
+                show={confirmDelete}
+                onConfirm={handleDelete}
+                onCancel={() => setConfirmDelete(false)}
+            />
         </div >
 
     );
