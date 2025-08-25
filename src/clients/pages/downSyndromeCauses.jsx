@@ -1,11 +1,24 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 export default function DownSyndromeCauses() {
   return (
-    <div className="max-w-4xl mx-auto p-8 bg-white shadow-lg rounded-2xl mt-8">
-      <h1 className="text-3xl font-bold text-blue-700 mb-6 text-center">
+    <motion.div
+      initial={{ y: 60, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      className="max-w-4xl mx-auto p-8 bg-white shadow-lg rounded-2xl mt-8"
+    >
+      {/* العنوان الأول مع الحركة من فوق + خط وردي */}
+      <motion.h1
+        initial={{ y: -40, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="text-3xl font-bold text-purple-700 mb-6 text-center relative inline-block"
+      >
         أسباب متلازمة داون
-      </h1>
+        <span className="absolute left-0 -bottom-5 w-0 h-[2px] bg-pink-500 animate-underline"></span>
+      </motion.h1>
 
       <p className="text-gray-700 leading-relaxed mb-6 text-lg">
         متلازمة داون هي حالة وراثية ناتجة عن تغيّر في المادة الجينية، وبالتحديد في 
@@ -14,13 +27,13 @@ export default function DownSyndromeCauses() {
         هذا التغير يؤثر على النمو الجسدي والعقلي للطفل بدرجات متفاوتة.
       </p>
 
-      <h2 className="text-2xl font-semibold text-blue-600 mb-4">
+      <h2 className="text-2xl font-semibold text-purple-700 mb-4">
         الأنواع الرئيسية للأسباب الجينية
       </h2>
 
       <ul className="list-disc pl-6 space-y-4 text-gray-800 text-lg">
         <li>
-          <span className="font-bold text-blue-600">1. التثلث الصبغي 21 (Trisomy 21):</span>  
+          <span className="font-bold text-purple-700">1. التثلث الصبغي 21 (Trisomy 21):</span>  
           وهو السبب الأكثر شيوعًا (حوالي 95% من الحالات).  
           يحدث عندما تحتوي كل خلية في الجسم على ثلاث نسخ كاملة من الكروموسوم 21 
           بدلًا من نسختين فقط. هذا النوع مرتبط غالبًا بخلل أثناء انقسام البويضات 
@@ -28,7 +41,7 @@ export default function DownSyndromeCauses() {
         </li>
 
         <li>
-          <span className="font-bold text-blue-600">2. الانتقال الكروموسومي (Translocation):</span>  
+          <span className="font-bold text-purple-700">2. الانتقال الكروموسومي (Translocation):</span>  
           يمثل حوالي 3–4% من الحالات.  
           هنا لا يكون هناك كروموسوم إضافي كامل، وإنما ينتقل جزء من الكروموسوم 21 
           ليرتبط بكروموسوم آخر. أحيانًا ينتقل هذا النوع وراثيًا من أحد الأبوين 
@@ -36,14 +49,14 @@ export default function DownSyndromeCauses() {
         </li>
 
         <li>
-          <span className="font-bold text-blue-600">3. الفسيفسائية (Mosaicism):</span>  
+          <span className="font-bold text-purple-700">3. الفسيفسائية (Mosaicism):</span>  
           حوالي 1–2% من الحالات.  
           يحدث عندما تحتوي بعض خلايا الجسم على الكروموسوم الإضافي بينما الخلايا الأخرى طبيعية.  
           هذا يؤدي عادةً إلى أعراض أخف مقارنة بالأنواع الأخرى.
         </li>
       </ul>
 
-      <h2 className="text-2xl font-semibold text-blue-600 mt-8 mb-4">
+      <h2 className="text-2xl font-semibold text-purple-700 mt-8 mb-4">
         عوامل مؤثرة على احتمالية حدوث متلازمة داون
       </h2>
       <ul className="list-disc pl-6 space-y-4 text-gray-800 text-lg">
@@ -65,7 +78,7 @@ export default function DownSyndromeCauses() {
         </li>
       </ul>
 
-      <h2 className="text-2xl font-semibold text-blue-600 mt-8 mb-4">
+      <h2 className="text-2xl font-semibold text-purple-700 mt-8 mb-4">
         ملاحظات مهمة
       </h2>
       <p className="text-gray-700 leading-relaxed mb-6 text-lg">
@@ -75,10 +88,24 @@ export default function DownSyndromeCauses() {
         الإصابة، لكنها لا تمنع حدوثها.
       </p>
 
-      <div className="bg-blue-50 p-4 rounded-xl text-blue-800 font-medium text-center">
+      <div className="bg-pink-50 p-4 rounded-xl text-blue-800 font-medium text-center">
         💡 التشخيص المبكر والتدخل العلاجي والتعليمي يساعدان بشكل كبير 
         في تحسين نوعية حياة الأشخاص ذوي متلازمة داون.
       </div>
-    </div>
+
+      {/* Tailwind custom animation classes */}
+      <style>
+        {`
+          @keyframes underlineGrow {
+            0% { width: 0; }
+            100% { width: 100%; }
+          }
+
+          .animate-underline {
+            animation: underlineGrow 1s ease-out forwards;
+          }
+        `}
+      </style>
+    </motion.div>
   );
 }

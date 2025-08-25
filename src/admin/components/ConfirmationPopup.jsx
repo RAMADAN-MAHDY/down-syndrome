@@ -33,7 +33,7 @@ export default function ConfirmationPopup({
                 onClick={onCancel}
                 className="bg-gray-300 hover:bg-gray-400 text-gray-700 px-4 py-2 rounded-lg transition"
               >
-                لا الغِ
+                لا 
               </button>
             </div>
           </motion.div>

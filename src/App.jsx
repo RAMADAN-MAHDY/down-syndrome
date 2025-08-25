@@ -27,16 +27,18 @@ import DownSyndromePregnancy from './clients/pages/DownSyndromePregnancy';
 import DownSyndromeTypesAndDegrees from './clients/pages/downSydromDegree';
 import DownSyndromeLife from './clients/pages/downSydromLife';
 import DownSyndromeTypes from './clients/pages/downSyndromTypes';
+import ScrollToTop from './clients/hooks/scroolToTop';
 
 function App() {
   return (
     <>
+     <ScrollToTop />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<LayOut />}>
           <Route index element={<ContentPage />} />
           <Route path="content" element={<ContentBySlug />} />
-          <Route path="news" element={<NewsPage />} />
+          <Route path="news/:type" element={<NewsPage />} />
           <Route path="events" element={<EventsPage/>}/>
           <Route path="filterSearch" element={<SearchResultsPage />} />
           <Route path="settings" element={<SettingsPage/>}/>

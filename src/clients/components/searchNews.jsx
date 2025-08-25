@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import axios from "axios";
 
@@ -7,7 +8,6 @@ export default function SearchNews() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  
   const savedAnswers = JSON.parse(localStorage.getItem("userAnswers")) || {};
 
   async function handleSearch(e) {
@@ -23,9 +23,8 @@ export default function SearchNews() {
           type: savedAnswers.problemTag,
         }
       );
-
       setResults(res.data);
-      setSearchTerm('')
+      setSearchTerm("");
     } catch (error) {
       console.error("حدث خطأ أثناء البحث:", error);
       if (error.response) {
@@ -39,33 +38,39 @@ export default function SearchNews() {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSearch}>
+    <div className="mb-10">
+      {/* input البحث */}
+      <form onSubmit={handleSearch} className="flex justify-center">
         <input
           type="text"
           placeholder="ابحث الآن"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full max-w-3xl px-4 py-1 rounded-lg border border-purple-500 shadow-lg text-lg outline-none mt-5 mb-10"
-
+          className="w-full max-w-2xl px-4 py-2 rounded-lg border-b border-pink-500 shadow-md text-lg outline-none"
         />
       </form>
 
-    
-      {loading && <p>جاري البحث...</p>}
+      {loading && <p className="text-center mt-4">جاري البحث...</p>}
+      {error && <p className="text-center mt-4 text-red-500">{error}</p>}
 
-    
-      {error && <p style={{ color: "red" }}>{error}</p>}
-
-    
       {results.length > 0 && (
-        <ul>
+        <ul className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
           {results.map((item) => (
-            <li key={item._id}>
-              <h3>{item.title}</h3>
-              <p>النوع: {item.type}</p>
-              <p>الموضوع: {item.topic}</p>
-              <img src={item.image} alt={item.title} width="150" />
+            <li
+              key={item._id}
+              className="p-4 rounded-xl shadow-lg border border-gray-200 bg-white"
+            >
+              <img
+                src={item.image}
+                alt={item.title}
+                  className="w-full h-48 md:h-56 object-cover rounded-md mx-auto"
+
+              />
+              <h3 className="text-xl font-semibold text-purple-600 mt-4 mb-2 text-center drop-shadow">
+                {item.title}
+              </h3>
+              <p className="text-gray-600 text-sm">النوع: {item.type}</p>
+              <p className="text-gray-600 text-sm">الموضوع: {item.topic}</p>
             </li>
           ))}
         </ul>
