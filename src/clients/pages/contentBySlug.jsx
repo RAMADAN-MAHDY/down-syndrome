@@ -11,7 +11,7 @@ export default function ContentBySlug() {
 
   const sluge = searchParams.get("sluge");
 
-  const savedData = JSON.parse(localStorage.getItem("updatedAnswers"));
+  const savedData = JSON.parse(localStorage.getItem("survey-storage"));
   const ageGroupId = savedData?.ageGroupId;
   const problemTag = savedData?.problemTag;
 

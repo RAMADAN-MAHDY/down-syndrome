@@ -34,7 +34,7 @@ export default function Settings() {
             className="w-full p-3 border-b-2 border-pink-400 text-gray-700 focus:outline-none focus:border-pink-600 transition"
           >
             {q.options.map((opt, index) => (
-              <option key={index} value={opt.id ? opt._id : opt}>
+              <option key={index} value={opt.id ? opt.id : opt}>
                 {opt.name ? opt.name : opt}
                 </option>
 

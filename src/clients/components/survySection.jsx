@@ -22,7 +22,7 @@ export default function SurvySection() {
         setQuestions(updatedQuestions);
       })
       .catch((err) => {
-        console.error("فشل في جلب الفئات العمرية", err);
+        console.error("فشل في جلب الفئات العمرية", err.response? err.response.data:err.message);
       });
   }, []);
 

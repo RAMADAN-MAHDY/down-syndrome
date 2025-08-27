@@ -1,8 +1,8 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+
 
 const useSurveyStore = create(
-  persist(
+ 
     (set) => ({
       questions: [
         {
@@ -42,7 +42,7 @@ const useSurveyStore = create(
       handleAnswer: (answer) =>
         set((state) => {
           const currentQuestion = state.questions[state.currentIndex];
-          const answerToStore = answer.id ? answer._id : answer;
+          const answerToStore = answer.id ? answer.id : answer;
           const updatedAnswers = {
             ...state.answers,
             [currentQuestion.id]: answerToStore,
@@ -76,7 +76,6 @@ const useSurveyStore = create(
     {
       name: "survey-storage",
     }
-  )
-);
+  );
 
 export default useSurveyStore;
