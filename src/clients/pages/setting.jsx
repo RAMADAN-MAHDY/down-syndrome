@@ -28,18 +28,27 @@ export default function Settings() {
             {q.question}
           </h3>
 
-          <select
-            value={answers[q.id] || ""}
-            onChange={(e) => updateAnswer(q.id, e.target.value)}
-            className="w-full p-3 border-b-2 border-pink-400 text-gray-700 focus:outline-none focus:border-pink-600 transition"
-          >
-            {q.options.map((opt, index) => (
-              <option key={index} value={opt.id ? opt.id : opt}>
-                {opt.name ? opt.name : opt}
-                </option>
+       <select
+  value={q.id === "ageGroupId" ? answers[q.id]?.id || "" : answers[q.id] || ""}
+  onChange={(e) => {
+    if (q.id === "ageGroupId") {
+      // نخزن object كامل فقط للفئة العمرية
+      const selectedOption = q.options.find(opt => opt.id === e.target.value);
+      updateAnswer(q.id, selectedOption);
+    } else {
+      // باقي الأسئلة تظل تخزن النصوص كما هي
+      updateAnswer(q.id, e.target.value);
+    }
+  }}
+  className="w-full p-3 border-b-2 border-pink-400 text-gray-700 focus:outline-none focus:border-pink-600 transition"
+>
+  {q.options.map((opt, index) => (
+    <option key={index} value={opt.id ? opt.id : opt}>
+      {opt.name ? opt.name : opt}
+    </option>
+  ))}
+</select>
 
-            ))}
-          </select>
         </div>
       ))}
 

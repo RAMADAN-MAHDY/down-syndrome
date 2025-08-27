@@ -41,7 +41,7 @@ const useSurveyStore = create(persist(
       handleAnswer: (answer) =>
         set((state) => {
           const currentQuestion = state.questions[state.currentIndex];
-          const answerToStore = answer.id ? { id: answer._id, name: answer.name } : answer;
+          const answerToStore = answer.id ? { id: answer.id, name: answer.name } : answer;
           const updatedAnswers = {
             ...state.answers,
             [currentQuestion.id]: answerToStore,

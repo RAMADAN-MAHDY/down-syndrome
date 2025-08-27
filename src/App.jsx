@@ -28,6 +28,7 @@ import DownSyndromeTypesAndDegrees from './clients/pages/downSydromDegree';
 import DownSyndromeLife from './clients/pages/downSydromLife';
 import DownSyndromeTypes from './clients/pages/downSyndromTypes';
 import ScrollToTop from './clients/hooks/scroolToTop';
+import ProtectedRoute from './admin/pages/protectedRoute';
 
 function App() {
   return (
@@ -56,11 +57,14 @@ function App() {
         <Route index element={<AdminLogin />} />
         <Route path="login" element={<AdminLogin />} />
 
+        <Route element={<ProtectedRoute/>}>
           <Route path="dashboard" element={<WelcomAdmin />} />
           <Route path="add-news" element={<AdminArticles />} />
           <Route path="bookings" element={<GetMessages />} />
           <Route path="add-content" element={<AddContents />} />
           <Route path="add-event" element={<AddEvents />} />
+        </Route>
+        
         </Route>
     
 

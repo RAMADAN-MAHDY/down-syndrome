@@ -45,7 +45,7 @@ export default function ContentBySlug() {
     return <p className="text-center mt-10">لا يوجد محتوى متاح حاليًا.</p>;
 
   return (
-    <div className="p-4 flex flex-wrap justify-center gap-6 mx-5">
+    <div className="p-4 flex flex-wrap justify-center gap-6">
   {content.map((item, idx) => (
     <motion.div
       key={item._id}
