@@ -12,8 +12,8 @@ export default function ContentBySlug() {
   const sluge = searchParams.get("sluge");
 
   const savedData = JSON.parse(localStorage.getItem("survey-storage"));
-  const ageGroupId = savedData?.ageGroupId;
-  const problemTag = savedData?.problemTag;
+  const ageGroupId = savedData?.state?.answers?.ageGroupId?.id;
+  const problemTag = savedData?.state?.ansswers?.problemTag;
 
   useEffect(() => {
     async function getContentBySlug() {

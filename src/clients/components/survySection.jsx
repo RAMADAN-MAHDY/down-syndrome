@@ -91,6 +91,7 @@ export default function SurvySection() {
                     const answerToStore = option.id
                       ? { id: option.id, name: option.name }
                       : option;
+                      console.log(answerToStore)
                     handleAnswer(answerToStore);
                   }}
                   className="

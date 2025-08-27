@@ -6,7 +6,7 @@ import SearchNews from "../components/searchNews";
 import { motion } from "framer-motion";
 
 export default function NewsPage() {
-  const savedAnswers = JSON.parse(localStorage.getItem("userAnswers")) || {};
+  const savedAnswers = JSON.parse(localStorage.getItem("survey-storage")) || {};
   const { type } = useParams();
 
   return (
@@ -32,7 +32,7 @@ export default function NewsPage() {
         <DataList
           endpoint="https://down-syndrome-api.vercel.app/api/getArticle"
           params={{
-            ageGroupId: savedAnswers.ageGroupId,
+            ageGroupId: savedAnswers?.state?.answers?.ageGroupId?.id,
             type: type,
           }}
         />

@@ -6,7 +6,7 @@ export default function ContentPage() {
 console.log("📌 Saved Answers:", savedAnswers);
 
   const params = {
-    ageGroupId: savedAnswers.state?.answers?.ageGroupId?._id, 
+    ageGroupId: savedAnswers.state?.answers?.ageGroupId?.name, 
     problemTag: savedAnswers.state?.answers?.problemTag
   };
 
