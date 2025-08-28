@@ -39,7 +39,7 @@ export default function Sidebar() {
     setLoading(true);
 
     try {
-      const res = await axios.post(
+       await axios.post(
         "https://down-syndrome-api.vercel.app/api/contact-us",
         { title: name, phone: phone, date: date }
       );
@@ -59,7 +59,7 @@ export default function Sidebar() {
   return (
     <>
       {/* Sidebar اللابتوب */}
-      <aside className="hidden lg:flex w-1/4 bg-gray-100 py-10 px-4 flex flex-col gap-6">
+      <aside className="hidden lg:flex w-1/4 bg-gray-100 py-10 px-4  flex-col gap-6">
         <h2 className="text-2xl text-purple-700 border-b border-pink-400 pb-2 mb-2 flex items-center justify-center gap-2">
           <FaRegCalendarCheck className="text-pink-400" /> لحجز موعد
         </h2>
@@ -100,7 +100,7 @@ export default function Sidebar() {
       {/* Sidebar كامل للموبايل عند الضغط */}
       {mobileOpen && (
         <motion.div initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }} className="fixed top-0 left-0 w-full h-full bg-gray-100 z-50 p-6 overflow-y-auto">
-          <button onClick={() => setMobileOpen(false)} className="mb-4 text-purple-700 font-bold">إغلاق</button>
+          <button onClick={() => setMobileOpen(false)} className="mb-4 text-purple-700 font-bold animate-bounce">إغلاق</button>
 
           <h2 className="text-2xl text-purple-700 border-b border-pink-400 pb-2 mb-4 flex items-center gap-2">
             <FaRegCalendarCheck className="text-pink-400" /> لحجز موعد

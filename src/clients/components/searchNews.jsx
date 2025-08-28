@@ -8,7 +8,7 @@ export default function SearchNews() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const savedAnswers = JSON.parse(localStorage.getItem("userAnswers")) || {};
+  const savedAnswers = JSON.parse(localStorage.getItem("survey-storage")) || {};
 
   async function handleSearch(e) {
     e.preventDefault();
@@ -19,8 +19,8 @@ export default function SearchNews() {
       const res = await axios.post(
         `https://down-syndrome-api.vercel.app/api/search?keyword=${searchTerm}`,
         {
-          ageGroupId: savedAnswers.ageGroupId,
-          type: savedAnswers.problemTag,
+          ageGroupId: savedAnswers.state?.answers?.ageGroupId?.id,
+          type: savedAnswers.state?.answers?.problemTag,
         }
       );
       setResults(res.data);
