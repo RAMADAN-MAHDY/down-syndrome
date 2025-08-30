@@ -27,13 +27,13 @@ import DownSyndromePregnancy from './clients/pages/DownSyndromePregnancy';
 import DownSyndromeTypesAndDegrees from './clients/pages/downSydromDegree';
 import DownSyndromeLife from './clients/pages/downSydromLife';
 import DownSyndromeTypes from './clients/pages/downSyndromTypes';
-import ScrollToTop from './clients/hooks/scroolToTop';
 import ProtectedRoute from './admin/pages/protectedRoute';
+
 
 function App() {
   return (
     <>
-     <ScrollToTop />
+   
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<LayOut />}>
@@ -51,6 +51,7 @@ function App() {
           <Route path="answers/4" element={< DownSyndromeIQ/>}/>
           <Route path="answers/2" element={<DownSyndromeTypes/>}/>
           <Route path='answers/7' element={<DownSyndromeDefinition/>}/>
+       
         </Route>
 
         <Route path="/admin" element={<LayoutAdmin />}>

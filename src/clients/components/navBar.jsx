@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import ChatWidget from './chatPage';
 import {
   FaCog,
   FaCalendarAlt,
-  FaTools,
   FaBook,
   FaFileAlt,
   FaVideo,
@@ -14,10 +14,12 @@ import {
   FaNewspaper,
   FaBars,
   FaTimes,
+ 
 } from 'react-icons/fa';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+
 
   return (
     <nav
@@ -58,6 +60,7 @@ export default function Navbar() {
             <span>الفعاليات</span>
           </Link>
 
+          {/* الأخبار */}
           <div className="relative group cursor-pointer ml-8">
             <div className="flex items-center gap-1 hover:text-white transition duration-300">
               <FaNewspaper />
@@ -88,6 +91,7 @@ export default function Navbar() {
             </div>
           </div>
 
+          {/* المحتوى */}
           <div className="relative group cursor-pointer ml-8">
             <div className="flex items-center gap-1 hover:text-white transition duration-300">
               <FaBook />
@@ -116,14 +120,12 @@ export default function Navbar() {
       {/* قائمة الموبايل */}
       {menuOpen && (
         <div className="md:hidden mt-6 bg-transparent backdrop-blur-sm text-white rounded-lg shadow-lg p-4 space-y-2">
-          {[
-            { to: '/home/settings', label: 'الإعدادات', icon: <FaCog /> },
-            { to: '/home/events', label: 'الفعاليات', icon: <FaCalendarAlt /> },
-          ].map((item, idx) => (
+          {[{ to: '/home/settings', label: 'الإعدادات', icon: <FaCog /> },
+            { to: '/home/events', label: 'الفعاليات', icon: <FaCalendarAlt /> }].map((item, idx) => (
             <Link
               key={idx}
               to={item.to}
-              className={`flex items-center gap-2 pl-4 hover:text-purple-200 transition duration-300 animate-slide-in`}
+              className="flex items-center gap-2 pl-4 hover:text-purple-200 transition duration-300 animate-slide-in"
               style={{ animationDelay: `${idx * 100}ms` }}
               onClick={() => setMenuOpen(false)}
             >
@@ -133,18 +135,16 @@ export default function Navbar() {
 
           {/* الأخبار */}
           <div className="border-t border-white/50 pt-2">
-            <span className="flex items-center gap-2 font-medium mb-2"> 
+            <span className="flex items-center gap-2 font-medium mb-2">
               <FaNewspaper /> الأخبار
             </span>
-            {[
-              { to: '/home/news/صحة', label: 'صحة', icon: <FaHeartbeat /> },
+            {[{ to: '/home/news/صحة', label: 'صحة', icon: <FaHeartbeat /> },
               { to: '/home/news/تعليم', label: 'تعليم', icon: <FaGraduationCap /> },
-              { to: '/home/news/رياضه', label: 'أنشطة', icon: <FaGamepad /> },
-            ].map((item, idx) => (
+              { to: '/home/news/رياضه', label: 'أنشطة', icon: <FaGamepad /> }].map((item, idx) => (
               <Link
                 key={idx}
                 to={item.to}
-                className={`flex items-center gap-2 pl-6 hover:text-purple-200 transition duration-300 animate-slide-in`}
+                className="flex items-center gap-2 pl-6 hover:text-purple-200 transition duration-300 animate-slide-in"
                 style={{ animationDelay: `${(idx + 2) * 100}ms` }}
                 onClick={() => setMenuOpen(false)}
               >
@@ -158,14 +158,12 @@ export default function Navbar() {
             <span className="flex items-center gap-2 font-medium mb-2">
               <FaBook /> المحتوى
             </span>
-            {[
-              { to: '/home/content?sluge=text', label: 'مقالات', icon: <FaFileAlt /> },
-              { to: '/home/content?sluge=vid', label: 'فيديوهات', icon: <FaVideo /> },
-            ].map((item, idx) => (
+            {[{ to: '/home/content?sluge=text', label: 'مقالات', icon: <FaFileAlt /> },
+              { to: '/home/content?sluge=vid', label: 'فيديوهات', icon: <FaVideo /> }].map((item, idx) => (
               <Link
                 key={idx}
                 to={item.to}
-                className={`flex items-center gap-2 pl-6 hover:text-purple-200 transition duration-300 animate-slide-in`}
+                className="flex items-center gap-2 pl-6 hover:text-purple-200 transition duration-300 animate-slide-in"
                 style={{ animationDelay: `${(idx + 5) * 100}ms` }}
                 onClick={() => setMenuOpen(false)}
               >
@@ -176,9 +174,11 @@ export default function Navbar() {
         </div>
       )}
 
-      {/* رسالة الترحيب */}
-      <div className="max-w-7xl mx-auto mt-6 md:mt-20 text-center text-white text-2xl font-semibold">
-        مركز الأمل يقدم لكم كل ما يخص متلازمة داون — كن مطمئنًا
+      {/* رسالة الترحيب + زرار الشات */}
+      <div className="max-w-7xl mx-auto mt-6 md:mt-20 text-center text-white text-2xl font-semibold flex justify-center items-center gap-3 relative">
+      
+        <span>مركز الأمل يقدم لكم كل ما يخص متلازمة داون — كن مطمئنًا</span>
+
       </div>
 
       {/* الأنيميشن */}
