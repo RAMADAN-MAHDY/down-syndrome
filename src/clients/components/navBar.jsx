@@ -175,11 +175,15 @@ export default function Navbar() {
       )}
 
       {/* رسالة الترحيب + زرار الشات */}
-      <div className="max-w-7xl mx-auto mt-6 md:mt-20 text-center text-white text-2xl font-semibold flex justify-center items-center gap-3 relative">
-      
-        <span>مركز الأمل يقدم لكم كل ما يخص متلازمة داون — كن مطمئنًا</span>
+   <div className="max-w-7xl mx-auto mt-6 md:mt-20 text-center text-white text-2xl font-semibold flex justify-center items-center gap-3 relative">
+  <span>مركز الأمل يقدم لكم كل ما يخص متلازمة داون — كن مطمئنًا</span>
+  <img 
+    src='/dawn4.jpg' 
+    className="w-28 h-28 rounded-full object-cover"
+    alt="صورة متعلقة بمتلازمة داون"
+  />
+</div>
 
-      </div>
 
       {/* الأنيميشن */}
       <style>
