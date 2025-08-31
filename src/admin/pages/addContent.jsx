@@ -319,15 +319,18 @@ sm:max-w-[80%] lg:max-w-[50%] bg-white/70 backdrop-blur-md p-6 rounded-2xl shado
                             )}
 
                             {item.sluge === "vid" && (
-                                <a
-                                    href={item.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-blue-600 underline font-medium hover:text-blue-800"
-                                >
-                                    🎥 شاهد الفيديو
-                                </a>
+                                <div className="w-full max-w-2xl aspect-video">
+                                    <iframe
+                                        src={item.url}
+                                        title="Embedded video"
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                        className="w-full h-full rounded-xl shadow-lg"
+                                    ></iframe>
+                                </div>
                             )}
+
 
                             <div className="flex gap-3 pt-3 mt-auto">
                                 <button

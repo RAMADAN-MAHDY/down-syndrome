@@ -28,7 +28,7 @@ import DownSyndromeTypesAndDegrees from './clients/pages/downSydromDegree';
 import DownSyndromeLife from './clients/pages/downSydromLife';
 import DownSyndromeTypes from './clients/pages/downSyndromTypes';
 import ProtectedRoute from './admin/pages/protectedRoute';
-
+// import ChatBotWidget from './clients/components/chatAI/ChatBot';
 
 function App() {
   return (
@@ -71,6 +71,9 @@ function App() {
 
       </Routes>
       <ToastContainer position="top-right" autoClose={3000} />
+
+
+        {/* <ChatBotWidget/> */}
     </>
   );
 }
