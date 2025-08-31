@@ -208,63 +208,55 @@ export default function ManageArticles() {
         </button>
       </form>
 
-      {/* 📚 جدول المقالات */}
-      <div className="bg-white shadow-md rounded-2xl p-4 sm:p-6 border mt-8">
-        <h2 className="text-lg sm:text-xl font-bold mb-4 text-gray-700">
-          📚 قائمة المقالات
-        </h2>
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse rounded-xl text-sm sm:text-base">
-            <thead>
-              <tr className="bg-gray-100 text-gray-600 text-left">
-                <th className="border p-3">📌 العنوان</th>
-                <th className="border p-3">📝 الموضوع</th>
-                <th className="border p-3">📂 النوع</th>
-                <th className="border p-3">🖼️ الصورة</th>
-              </tr>
-            </thead>
-            <tbody>
-              {articles.map((a) => (
-                <React.Fragment key={a._id}>
-                  {/* بيانات المقال */}
-                  <tr className="hover:bg-gray-50 transition border-b">
-                    <td className="p-3">{a.title}</td>
-                    <td className="p-3">{a.topic}</td>
-                    <td className="p-3">{a.type}</td>
-                    <td className="p-3 w-[100px]">
-                      <img
-                        src={a.image}
-                        alt="image"
-                        className="rounded-md w-16 h-16 object-cover"
-                      />
-                    </td>
-                  </tr>
+  {/* 📚 كروت المقالات */}
+<div className="bg-white shadow-md rounded-2xl p-4 sm:p-6 border mt-8">
+  <h2 className="text-lg sm:text-xl font-bold mb-6 text-gray-700">
+    📚 قائمة المقالات
+  </h2>
 
-                  {/* صف الإجراءات */}
-                  <tr className="border-b">
-                    <td colSpan="4" className="p-3">
-                      <div className="flex justify-center gap-3 flex-wrap">
-                        <button
-                          onClick={() => handleEdit(a)}
-                          className="flex items-center gap-1 bg-yellow-500 hover:bg-yellow-600 transition text-white px-3 py-2 rounded-md shadow-sm text-sm"
-                        >
-                          ✏️ تعديل
-                        </button>
-                        <button
-                          onClick={() => handleDeleteClick(a._id)}
-                          className="flex items-center gap-1 bg-red-600 hover:bg-red-700 transition text-white px-3 py-2 rounded-md shadow-sm text-sm"
-                        >
-                          🗑️ حذف
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                </React.Fragment>
-              ))}
-            </tbody>
-          </table>
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {articles.map((a) => (
+      <div
+        key={a._id}
+        className="bg-gray-50 rounded-xl shadow hover:shadow-lg transition border overflow-hidden flex flex-col"
+      >
+        {/* صورة المقال */}
+        <img
+          src={a.image}
+          alt={a.title}
+          className="w-full h-40 object-cover"
+        />
+
+        {/* تفاصيل المقال */}
+        <div className="p-4 flex flex-col flex-grow">
+          <h3 className="font-bold text-gray-800 text-lg mb-1">
+            {a.title}
+          </h3>
+          <p className="text-gray-600 text-sm mb-2 line-clamp-2">
+            📝 {a.topic}
+          </p>
+          <span className="text-xs text-gray-500 mb-4">📂 النوع: {a.type}</span>
+
+          {/* أزرار الإجراءات */}
+          <div className="mt-auto flex justify-between gap-2">
+            <button
+              onClick={() => handleEdit(a)}
+              className="flex items-center justify-center gap-1 bg-yellow-500 hover:bg-yellow-600 transition text-white px-3 py-2 rounded-md shadow-sm text-sm w-full"
+            >
+              ✏️ تعديل
+            </button>
+            <button
+              onClick={() => handleDeleteClick(a._id)}
+              className="flex items-center justify-center gap-1 bg-red-600 hover:bg-red-700 transition text-white px-3 py-2 rounded-md shadow-sm text-sm w-full"
+            >
+              🗑️ حذف
+            </button>
+          </div>
         </div>
       </div>
+    ))}
+  </div>
+</div>
 
       <Alert
         show={alert.show}
